@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button } from 'antd';
+import { Modal, Button, Input } from 'antd';
 import Draggable from 'react-draggable';
 
 class Modals extends Component {
@@ -7,6 +7,7 @@ class Modals extends Component {
     visible: false,
     disabled: true,
     bounds: { left: 0, top: 0, bottom: 0, right: 0 },
+   
   };
 
   draggleRef = React.createRef();
@@ -43,7 +44,26 @@ class Modals extends Component {
       },
     });
   };
+  enterLoading = index => {
+    this.setState(({ loadings }) => {
+      const newLoadings = [...loadings];
+      newLoadings[index] = true;
 
+      return {
+        loadings: newLoadings,
+      };
+    });
+    setTimeout(() => {
+      this.setState(({ loadings }) => {
+        const newLoadings = [...loadings];
+        newLoadings[index] = false;
+
+        return {
+          loadings: newLoadings,
+        };
+      });
+    }, 6000);
+  };
   render() {
     const { bounds, disabled, visible } = this.state;
     return (
@@ -54,7 +74,11 @@ class Modals extends Component {
             <div
               style={{
                 width: '100%',
-                cursor: 'move',
+                cursor: 'move',               
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                
               }}
               onMouseOver={() => {
                 if (disabled) {
@@ -74,12 +98,16 @@ class Modals extends Component {
               onBlur={() => {}}
               // end
             >
-              Draggable Modal
+            <h5>Request an invite</h5>
             </div>
           }
           visible={visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
+          footer={
+            [] // 设置footer为空，去掉 取消 确定默认按钮
+          }
+
           modalRender={modal => (
             <Draggable
               disabled={disabled}
@@ -90,12 +118,33 @@ class Modals extends Component {
             </Draggable>
           )}
         >
-          <p>
-            Just don&apos;t learn physics at school and your life will be full of magic and
-            miracles.
-          </p>
-          <br />
-          <p>Day before yesterday I saw a rabbit, and yesterday a deer, and today, you.</p>
+
+        <Input placeholder="Full name" style={{ width: '100%',
+                cursor: 'move',               
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center", }} />
+        <br />
+        <br />
+        <Input placeholder="Email" style={{ width: '100%',
+                cursor: 'move',               
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",}} />
+        <br />
+        <br />
+        <Input placeholder="Confirm email"  style={{ width: '100%',
+                cursor: 'move',               
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center", }}/>
+        <br />
+        <br />
+        <Button onClick={this.showModal} style={{ width: '100%',
+                cursor: 'move',               
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center", }}>Send</Button>
         </Modal>
       </>
     );

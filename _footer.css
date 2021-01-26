@@ -1,0 +1,15 @@
+.site-footer {
+  background-color: red;
+  margin-top: 20px;
+  padding: 10px;
+  text-align: center;
+}
+
+.footerPosi{
+  background-color: green;
+
+  position: absolute;
+  bottom: 100px;
+  width: 100%;
+  height: 100px;
+}

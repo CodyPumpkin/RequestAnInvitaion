@@ -28,7 +28,8 @@ export default class Footer extends Component {
   
     render() {
         return (
-            <div className="site-footer" ref={(o)=>this.footer=o}>
+          
+            <div className="footerPosi" ref={(o)=>this.footer=o } style={{borderTop: '1px solid #000'}}>
             <p className="text-center">Made with 💗 in Melbourne.</p >
             <p className="text-center">© 2015 Broccoli & Co. All rights reserved.</p >
             </div>

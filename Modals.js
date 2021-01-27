@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Modal, Button, Input } from 'antd';
 import Draggable from 'react-draggable';
+import InnerModals from './InnerModals';
 
 class Modals extends Component {
   state = {
     visible: false,
     disabled: true,
     bounds: { left: 0, top: 0, bottom: 0, right: 0 },
-   
+    open: false,
   };
 
   draggleRef = React.createRef();
@@ -15,6 +16,14 @@ class Modals extends Component {
   showModal = () => {
     this.setState({
       visible: true,
+      open: false,
+    });
+  };
+
+  showInnerModal = () => {
+    this.setState({
+      visible: false,
+      open: true,
     });
   };
 
@@ -64,8 +73,11 @@ class Modals extends Component {
       });
     }, 6000);
   };
+  
   render() {
-    const { bounds, disabled, visible } = this.state;
+    const { bounds, disabled, visible, open } = this.state;
+    if(open) {return <InnerModals></InnerModals>}
+    else {
     return (
       <>
         <Button onClick={this.showModal}>Request an invite</Button>
@@ -104,6 +116,7 @@ class Modals extends Component {
           visible={visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
+          open={open}
           footer={
             [] // 设置footer为空，去掉 取消 确定默认按钮
           }
@@ -140,15 +153,18 @@ class Modals extends Component {
                 alignItems: "center", }}/>
         <br />
         <br />
-        <Button onClick={this.showModal} style={{ width: '100%',
+        <Button onClick={this.showInnerModal} style={{ width: '100%',
                 cursor: 'move',               
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center", }}>Send</Button>
+        <Modal opened={this.state.open} toggleModal={this.toggleModal}/>
+
         </Modal>
+        {this.props.opened && <InnerModals />}        
       </>
     );
   }
 }
+}
 export default Modals;
-// ReactDOM.render(<Modals />, mountNode);

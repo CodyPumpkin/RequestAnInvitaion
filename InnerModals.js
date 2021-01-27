@@ -3,51 +3,31 @@ import { Modal, Button } from 'antd';
 
 class InnerModals extends React.Component {
   state = {
-    loading: true,
     visible: true,
   };
 
-  showModal = () => {
+ handleOk = () => {
     this.setState({
-      visible: true,
-    });
-  };
-
-  handleOk = () => {
-    this.setState({ loading: true });
-    setTimeout(() => {
-      this.setState({ loading: false, visible: false });
-    }, 3000);
-  };
-
-  handleCancel = () => {
-    this.setState({ visible: false });
+        visible: false,
+      });
   };
 
   render() {
-    const { visible, loading } = this.state;
+    const { visible } = this.state;
     return (
       <>
         <Modal
           visible={visible}
-          title="Title"
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-          footer={[
-            <Button key="back" onClick={this.handleCancel}>
-              Return
-            </Button>,
-            <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
-              Submit
-            </Button>,
-          ]}
+          footer={[]}
         >
-          <p>You will be one of the first to experience Broccoli & Co. when we launch.</p>
-
+          <h2 align="center">All done!</h2>
+          <p align="center">You will be one of the first to experience <br /> Broccoli & Co. when we launch.</p>
+          <Button onClick={this.handleOk} style={{ width: '100%',
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center", }}>OK</Button>
         </Modal>
       </>
     );
   }
 }export default InnerModals;
-
-// ReactDOM.render(<App />, mountNode);

@@ -27,11 +27,19 @@ class Modals extends Component {
     });
   };
 
-  handleOk = e => {
-    console.log(e);
-    this.setState({
-      visible: false,
-    });
+  // handleOk = e => {
+  //   console.log(e);
+  //   this.setState({
+  //     visible: false,
+  //   });
+  // };
+   handleOk = () => {
+    setModalText('The modal will be closed after two seconds');
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setVisible(false);
+      setConfirmLoading(false);
+    }, 2000);
   };
 
   handleCancel = e => {
@@ -158,7 +166,7 @@ class Modals extends Component {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center", }}>Send</Button>
-        <Modal opened={this.state.open} toggleModal={this.toggleModal}/>
+        <Modal opened={this.state.open} />
 
         </Modal>
         {this.props.opened && <InnerModals />}        
